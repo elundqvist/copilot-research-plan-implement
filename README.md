@@ -1,4 +1,4 @@
-# Copilot Research-Plan-Implement Framework
+# Research-Plan-Implement Framework for GitHub Copilot
 
 Forked from the Claude Code specific version: https://github.com/brilliantconsultingdev/claude-research-plan-implement
 
