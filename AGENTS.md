@@ -21,6 +21,8 @@ This is the GitHub Copilot Research-Plan-Implement Framework - a structured work
 4. `/4_implement_plan` - Execute plan systematically
 5. `/5_save_progress` - Save work session state
 6. `/6_resume_work` - Resume from saved session
+7. `/7_research_cloud` - Read-only cloud infrastructure analysis
+8. `/8_define_test_cases` - Design acceptance test cases (comment-first DSL) before implementation
 
 ## High-Level Architecture
 
@@ -28,21 +30,22 @@ This is the GitHub Copilot Research-Plan-Implement Framework - a structured work
 ```
 copilot-research-plan-implement/
 ├── .github/
-│   ├── agents/                   # Specialized AI agent definitions
-│   │   ├── codebase-locator.agent.md   # Finds relevant files efficiently
-│   │   ├── codebase-analyzer.agent.md  # Analyzes code implementation details
+│   ├── agents/                            # Specialized AI agent definitions
+│   │   ├── codebase-locator.agent.md      # Finds relevant files efficiently
+│   │   ├── codebase-analyzer.agent.md     # Analyzes code implementation details
 │   │   └── codebase-pattern-finder.agent.md # Identifies patterns to follow
-│   └── commands/                 # Numbered workflow command definitions
-│       └── [1-6]_*.md           # Each phase of the workflow
-
-├── thoughts/                     # Persistent context storage structure
+│   └── prompts/                           # Numbered workflow slash-commands
+│       └── [1-8]_*.prompt.md              # Each phase of the workflow
+├── thoughts/                              # Persistent context storage
 │   └── shared/
-│       ├── research/            # Research findings (YYYY-MM-DD_*.md)
-│       ├── plans/               # Implementation plans
-│       └── sessions/            # Work session summaries
-├── PLAYBOOK.md                   # Comprehensive guide
-├── README.md                     # Quick start guide
-└── setup.sh                      # Automated installation script
+│       ├── research/                      # Research findings (NNN_*.md)
+│       ├── plans/                         # Implementation plans
+│       ├── sessions/                      # Work session summaries
+│       └── cloud/                         # Cloud infrastructure analyses
+├── AGENTS.md                              # This file (primary instructions)
+├── PLAYBOOK.md                            # Comprehensive guide
+├── README.md                              # Quick start guide
+└── setup.sh                               # Automated installation script
 ```
 
 ### Key Architectural Concepts
