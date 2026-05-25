@@ -23,7 +23,7 @@ Invoke this when:
 1. **Read session summary** if a path is provided.
    ```
    /6_resume_work
-   > thoughts/shared/sessions/2025-01-06_user_management.md
+   > thoughts/shared/sessions/003_user_management.md
    ```
 
 2. **Or discover recent sessions**:
@@ -136,7 +136,7 @@ I'll continue with [specific next action]...
 ### Pattern 2: Full Context Restore (Days Later)
 ```markdown
 /6_resume_work
-> thoughts/shared/sessions/2025-01-03_auth_refactor.md
+> thoughts/shared/sessions/001_auth_refactor.md
 
 # Copilot:
 1. Reads full session summary

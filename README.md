@@ -85,7 +85,7 @@ The framework follows a structured workflow:
 **Purpose**: Resume from a previously saved session
 **Usage**: Loads context from a session file
 **Output**: Restored context and work continuation
-**Example**: `thoughts/shared/sessions/2025-01-06_oauth2.md`
+**Example**: `thoughts/shared/sessions/002_oauth2.md`
 
 ### 7️⃣ Research Cloud (`/7_research_cloud`)
 **Purpose**: Analyze cloud infrastructure using READ-ONLY CLI operations
@@ -145,7 +145,7 @@ After installation, customize for your project:
 
 # 6. Resume work later
 /6_resume_work
-> thoughts/shared/sessions/2025-01-06_oauth2.md
+> thoughts/shared/sessions/002_oauth2.md
 ```
 
 ## ☁️ Cloud Analysis Example

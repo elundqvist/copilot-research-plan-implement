@@ -1,8 +1,8 @@
 ---
 date: 2025-01-06T14:30:00+02:00
 feature: User Authentication Refactor
-plan: thoughts/shared/plans/auth_refactor.md
-research: thoughts/shared/research/2025-01-06_auth_system.md
+plan: thoughts/shared/plans/001_auth_refactor.md
+research: thoughts/shared/research/001_auth_system.md
 status: in_progress
 last_commit: abc123def456
 ---
@@ -81,7 +81,7 @@ To continue this work:
 
 1. **Load context:**
    ```
-   /6_resume_work thoughts/shared/sessions/2025-01-06_auth_refactor.md
+   /6_resume_work thoughts/shared/sessions/001_auth_refactor.md
    ```
 
 2. **Check plan progress:**
