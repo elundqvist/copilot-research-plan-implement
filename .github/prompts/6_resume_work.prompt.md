@@ -1,8 +1,14 @@
+---
+description: Restore context from a saved session and continue work
+argument-hint: Path to a session summary in thoughts/shared/sessions/
+tools: ['search', 'read/readFile', 'edit/editFiles', 'execute/runInTerminal', 'agent/runSubagent', 'todos']
+---
+
 # Resume Work
 
 You are tasked with resuming previously saved work by restoring full context and continuing implementation.
 
-## When to Use This Command
+## When to Use This Prompt
 
 Invoke this when:
 - Returning to a previously paused feature
@@ -14,7 +20,7 @@ Invoke this when:
 
 ### Step 1: Load Session Context
 
-1. **Read session summary** if provided:
+1. **Read session summary** if a path is provided.
    ```
    /6_resume_work
    > thoughts/shared/sessions/2025-01-06_user_management.md
@@ -76,13 +82,11 @@ Create a brief context summary:
    ```bash
    # Run tests to check current state
    npm test
-   # or
-   make test
+   # or whatever the project uses
    ```
-
-3. **Load todos**:
-   - Restore previous todo list
-   - Update with current tasks
+   
+3. **Restore todos**:
+   - rebuild the `todos` list from the session/plan.
 
 ### Step 5: Continue Implementation
 
@@ -123,7 +127,7 @@ I'll continue with [specific next action]...
 /6_resume_work
 > Continue the user management feature from this morning
 
-# Claude:
+# Copilot:
 1. Finds most recent session
 2. Reads plan to see progress
 3. Continues from last checkbox
@@ -134,7 +138,7 @@ I'll continue with [specific next action]...
 /6_resume_work
 > thoughts/shared/sessions/2025-01-03_auth_refactor.md
 
-# Claude:
+# Copilot:
 1. Reads full session summary
 2. Reviews related research
 3. Checks git history since then
@@ -147,17 +151,17 @@ I'll continue with [specific next action]...
 /6_resume_work
 > What was I working on last week? Find and continue it.
 
-# Claude:
+# Copilot:
 1. Lists recent sessions
 2. Shows git branches with recent activity
-3. Presents options to user
+3. Presents options to the user
 4. Resumes chosen work
 ```
 
 ## Integration with Framework
 
-This command connects with:
-- `/5_save_progress` - Reads saved progress
+This prompt connects with:
+- `/5_save_progress` - Reads the saved progress
 - `/4_implement_plan` - Continues implementation
 - `/1_research_codebase` - Refreshes understanding if needed
 - `/3_validate_plan` - Checks what's been completed
@@ -165,11 +169,11 @@ This command connects with:
 ## Advanced Features
 
 ### Handling Conflicts
-If the codebase changed since last session:
+If the codebase changed since the last session:
 1. Check for conflicts with current branch
 2. Review changes to related files
-3. Update plan if needed
-4. Communicate impacts to user
+3. Update the plan if needed
+4. Communicate impacts to the user
 
 ### Session Comparison
 ```markdown
@@ -181,8 +185,8 @@ If the codebase changed since last session:
 ```
 
 ### Recovery Mode
-If session wasn't properly saved:
-1. Use git reflog to find work
+If a session wasn't properly saved:
+1. Use `git reflog` to find work
 2. Check editor backup files
 3. Review shell history
 4. Reconstruct from available evidence
@@ -190,9 +194,9 @@ If session wasn't properly saved:
 ## Important Guidelines
 
 - **Always verify state** before continuing
-- **Run tests first** to ensure clean slate
+- **Run tests first** to ensure a clean slate
 - **Communicate clearly** about what's being resumed
-- **Update stale plans** if codebase evolved
+- **Update stale plans** if the codebase evolved
 - **Check for blockers** that may have been resolved
 - **Refresh context fully** - don't assume memory
 

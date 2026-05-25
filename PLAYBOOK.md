@@ -1,24 +1,36 @@
-# Claude Code Research-Plan-Implement Framework Playbook
+# Research-Plan-Implement Framework for GitHub Copilot - Playbook
 
 ## Table of Contents
 1. [Overview](#overview)
 2. [Quick Start](#quick-start)
 3. [Framework Architecture](#framework-architecture)
 4. [Workflow Phases](#workflow-phases)
-5. [Command Reference](#command-reference)
+5. [Prompt Reference](#prompt-reference)
 6. [Session Management](#session-management)
-7. [Agent Reference](#agent-reference)
+7. [Subagent Reference](#subagent-reference)
 8. [Best Practices](#best-practices)
 9. [Customization Guide](#customization-guide)
 10. [Troubleshooting](#troubleshooting)
+11. [Advanced Usage](#advanced-usage)
+12. [Conclusion](#conclusion)
 
 ## Overview
 
-The Research-Plan-Implement Framework is a structured approach to AI-assisted software development that emphasizes:
+The Research-Plan-Implement Framework is a structured approach to AI-assisted software development for **GitHub Copilot** that emphasizes:
 - **Thorough research** before coding
 - **Detailed planning** with clear phases
 - **Systematic implementation** with verification
-- **Persistent context** through markdown documentation
+- **Persistent context** through Markdown documentation
+- **Parallel subagents** during research
+
+It works identically in **VS Code Copilot** and **Copilot CLI** by using GitHub Copilot's native customization surfaces:
+
+| Concept | File pattern | Location |
+|---|---|---|
+| Workflow slash-commands | `*.prompt.md` | `.github/prompts/` |
+| Custom subagents | `*.agent.md` | `.github/agents/` |
+| Repo-wide instructions | `AGENTS.md` | repo root |
+| Persistent context | `*.md` | `thoughts/shared/` |
 
 ### Core Benefits
 - 🔍 **Deep Understanding**: Research phase ensures complete context
@@ -32,17 +44,21 @@ The Research-Plan-Implement Framework is a structured approach to AI-assisted so
 
 ### Installation
 
-1. **Copy framework files to your repository:**
+1. **Run setup.sh:**
 ```bash
-# From the .claude-framework-adoption directory
-cp -r .claude your-repo/
-cp -r thoughts your-repo/
+# From this framework repo, install into your target repo
+./setup.sh /path/to/your/repo
 ```
 
+The installer creates `.github/prompts/`, `.github/agents/`, `AGENTS.md`, and `thoughts/shared/{research,plans,sessions,cloud}/` in the target repo.
+
 2. **Customize for your project:**
-- Edit `.claude/commands/*.md` to match your tooling
-- Update agent descriptions if needed
-- Add project-specific CLAUDE.md
+
+Before first use, tailor the framework to your stack:
+
+- **Edit `.github/prompts/*.prompt.md`** to match your project's tooling (test/lint/build commands, success criteria).
+- **Update subagent descriptions** in `.github/agents/*.agent.md` if you want to specialize them.
+- **Add project conventions** to `AGENTS.md` (Testing, Code Style, Git Workflow, etc.) - see [Customization Guide](#customization-guide) for examples.
 
 3. **Test the workflow:**
 
@@ -72,44 +88,39 @@ cp -r thoughts your-repo/
 
 ```
 your-repo/
-├── .claude/                      # AI Assistant Configuration
-│   ├── agents/                   # Specialized AI agents
-│   │   ├── codebase-locator.md   # Finds relevant files
-│   │   ├── codebase-analyzer.md  # Analyzes implementation
-│   │   └── codebase-pattern-finder.md # Finds patterns to follow
-│   └── commands/                 # Numbered workflow commands
-│       ├── 1_research_codebase.md
-│       ├── 2_create_plan.md
-│       ├── 3_validate_plan.md
-│       ├── 4_implement_plan.md
-│       ├── 5_save_progress.md   # Save work session
-│       ├── 6_resume_work.md     # Resume saved work
-│       ├── 7_research_cloud.md  # Cloud infrastructure analysis
-│       └── 8_define_test_cases.md # Design acceptance test cases
-├── thoughts/                     # Persistent Context Storage
-│   └── shared/
-│       ├── research/            # Research findings
-│       │   └── YYYY-MM-DD_*.md
-│       ├── plans/               # Implementation plans
-│       │   └── feature_name.md
-│       ├── sessions/            # Work session summaries
-│       │   └── YYYY-MM-DD_*.md
-│       └── cloud/               # Cloud infrastructure analyses
-│           └── platform_*.md
-└── CLAUDE.md                    # Project-specific instructions
+├── .github/
+│   ├── agents/                            # Subagents
+│   │   ├── codebase-locator.agent.md
+│   │   ├── codebase-analyzer.agent.md
+│   │   └── codebase-pattern-finder.agent.md
+│   └── prompts/                           # Workflow slash-commands
+│       ├── 1_research_codebase.prompt.md
+│       ├── 2_create_plan.prompt.md
+│       ├── 3_validate_plan.prompt.md
+│       ├── 4_implement_plan.prompt.md
+│       ├── 5_save_progress.prompt.md
+│       ├── 6_resume_work.prompt.md
+│       ├── 7_research_cloud.prompt.md
+│       └── 8_define_test_cases.prompt.md
+├── AGENTS.md
+└── thoughts/
+    └── shared/
+        ├── research/    # 001_topic.md, 002_…
+        ├── plans/       # 001_feature.md
+        ├── sessions/    # 001_feature.md
+        └── cloud/       # 001_platform.md
 ```
 
 ## Workflow Phases
 
 ### Phase 1: Research (`/1_research_codebase`)
 
-**Purpose**: Comprehensive exploration and understanding
+**Purpose**: Comprehensive exploration and understanding.
 
 **Process**:
-1. Invoke command with research question
-2. AI spawns parallel agents to investigate
-3. Findings compiled into structured document
-4. Saved to `thoughts/shared/research/`
+1. Invoke with a research question.
+2. The prompt dispatches `codebase-locator`, `codebase-analyzer`, and `codebase-pattern-finder` **in parallel** via the `agent` tool.
+3. Findings are synthesized and saved as `thoughts/shared/research/NNN_topic.md`.
 
 **Example**:
 ```
@@ -125,7 +136,7 @@ your-repo/
 
 ### Phase 2: Planning (`/2_create_plan`)
 
-**Purpose**: Create detailed, phased implementation plan
+**Purpose**: Produce a detailed, phased plan with measurable success criteria.
 
 **Process**:
 1. Read requirements and research
@@ -159,6 +170,8 @@ your-repo/
 ## Phase 2: API Integration
 [...]
 ```
+
+Saved as `thoughts/shared/plans/NNN_feature.md`.
 
 ### Phase 3: Implementation (`/4_implement_plan`)
 
@@ -257,29 +270,29 @@ your-repo/
 
 ## Command Reference
 
-### Core Workflow Commands
+### Core Workflow Prompts
 
 ### `/1_research_codebase`
 - **Purpose**: Deep dive into codebase
-- **Input**: Research question
-- **Output**: Research document
-- **Agents Used**: All locator/analyzer agents
+- **Input**: A research question.
+- **Output**: `thoughts/shared/research/NNN_topic.md`
+- **Subagents used**: all three, in parallel.
 
 ### `/2_create_plan`
 - **Purpose**: Create implementation plan
-- **Input**: Requirements/ticket
-- **Output**: Phased plan document
-- **Interactive**: Yes
+- **Input**: A feature description, ticket, or reference to research.
+- **Output**: `thoughts/shared/plans/NNN_feature.md`
+- **Interactive**: Yes - asks clarifying questions.
 
 ### `/3_validate_plan`
 - **Purpose**: Verify implementation
-- **Input**: Plan path (optional)
-- **Output**: Validation report
+- **Input**: A plan path (or auto-detect most recent).
+- **Output**: Validation report (returned in chat).
 
 ### `/4_implement_plan`
 - **Purpose**: Execute implementation
-- **Input**: Plan path
-- **Output**: Completed implementation
+- **Input**: A plan path.
+- **Output**: Code changes + plan checkbox updates.
 
 ## Session Management
 
@@ -287,92 +300,63 @@ The framework supports saving and resuming work through persistent documentation
 
 ### `/5_save_progress`
 - **Purpose**: Save work progress and context
-- **Input**: Current work state
-- **Output**: Session summary and checkpoint
-- **Creates**: `thoughts/shared/sessions/` document
+- **Input**: Optional note about why you're stopping.
+- **Output**: `thoughts/shared/sessions/NNN_feature.md`
 
 ### `/6_resume_work`
 - **Purpose**: Resume previously saved work
-- **Input**: Session summary path or auto-discover
-- **Output**: Restored context and continuation
-- **Reads**: Session, plan, and research documents
-
-### Saving Progress (`/5_save_progress`)
-
-When you need to pause work:
-```
-/5_save_progress
-> Need to stop working on the payment feature
-
-# Creates:
-- Session summary in thoughts/shared/sessions/
-- Progress checkpoint in the plan
-- Work status documentation
-```
-
-### Resuming Work (`/6_resume_work`)
-
-To continue where you left off:
-```
-/6_resume_work
-> thoughts/shared/sessions/2025-01-06_payment_feature.md
-
-# Restores:
-- Full context from session
-- Plan progress state
-- Research findings
-- Todo list
-```
-
-### Progress Tracking
-
-Plans track progress with checkboxes:
-- `- [ ]` Not started
-- `- [x]` Completed
-- Progress checkpoints document partial completion
-
-When resuming, implementation continues from first unchecked item or documented checkpoint.
-
-### Session Documents
-
-Session summaries include:
-- Work completed in session
-- Current state and blockers
-- Next steps to continue
-- Commands to resume
-- File changes and test status
-
-This enables seamless context switching between features or across days/weeks.
+- **Input**: A session path (or auto-discover).
+- **Output**: Restored context, ready to continue.
 
 ### `/7_research_cloud`
 - **Purpose**: Analyze cloud infrastructure (READ-ONLY)
-- **Input**: Cloud platform and focus area
-- **Output**: Infrastructure analysis document
-- **Creates**: `thoughts/shared/cloud/` documents
+- **Input**: Cloud platform and focus area.
+- **Output**: `thoughts/shared/cloud/NNN_platform_env.md`
+- **Safety**: READ-ONLY operations only.
 
 ### `/8_define_test_cases`
 - **Purpose**: Design acceptance test cases using DSL approach
 - **Input**: Feature/functionality to test
-- **Output**: Test case definitions in comments + required DSL functions
-- **Approach**: Comment-first, follows existing test patterns
-- **Agent Used**: codebase-pattern-finder (automatic)
+- **Output**: Test case comment definitions + DSL function inventory.
+- **Subagent used**: `codebase-pattern-finder`.
 
-## Agent Reference
+## Session Management
+
+Plans use checkboxes (`- [ ]` / `- [x]`) as the source of truth for progress. `/5_save_progress` writes a session summary; `/6_resume_work` reads it, replays the working state (stashes, branch, last commit), and resumes at the first unchecked item.
+
+Session summary structure:
+
+```markdown
+---
+date: …
+feature: …
+plan: thoughts/shared/plans/001_feature.md
+status: in_progress
+last_commit: <hash>
+---
+
+# Session Summary: …
+## Accomplishments / Discoveries / Open Questions / Ready to Resume
+```
+
+## Subagent Reference
 
 ### codebase-locator
-- **Role**: Find relevant files
-- **Tools**: Grep, Glob, LS
-- **Returns**: Categorized file listings
+- **Role**: Find relevant files (no content reading).
+- **Tools**: `search/codebase`, `search/fileSearch`, `search/textSearch`, `search/listDirectory`
+- **Returns**: Categorized file listings.
 
 ### codebase-analyzer
-- **Role**: Understand implementation
-- **Tools**: Read, Grep, Glob, LS
-- **Returns**: Detailed code analysis
+- **Role**: Understand implementation (reads files thoroughly).
+- **Tools**: `search/codebase`, `search/fileSearch`, `search/textSearch`, `search/listDirectory`, `search/usages`, `read/readFile`
+- **Returns**: Data-flow analysis, dependencies, integration points.
 
 ### codebase-pattern-finder
-- **Role**: Find examples to follow
-- **Tools**: Grep, Glob, Read, LS
-- **Returns**: Code patterns and examples
+- **Role**: Find concrete examples to model new code after.
+- **Tools**: `search/codebase`, `search/fileSearch`, `search/textSearch`, `search/listDirectory`, `search/usages`, `read/readFile`
+- **Returns**: Code snippets, naming conventions, file organization.
+
+All three are marked `user-invocable: false` - they're invoked from prompts via the `agent/runSubagent` tool, not from the agent dropdown.
 
 ## Best Practices
 
@@ -413,7 +397,9 @@ This enables seamless context switching between features or across days/weeks.
 
 ## Customization Guide
 
-### Adapting Commands
+### Adapting Prompts to Your Project
+
+Edit the relevant `.github/prompts/*.prompt.md` file. Common changes:
 
 1. **Remove framework-specific references:**
 ```markdown
@@ -440,23 +426,30 @@ Save to thoughts/shared/research/
 - [ ] Documentation generated
 ```
 
-### Adding Custom Agents
+4. **Restrict tool access** via the `tools:` field in frontmatter - for example, remove `execute/runInTerminal` from prompts that should never execute shell commands.
 
-Create new agents for specific needs:
+5. **Add an `agent:` field** in a prompt's frontmatter to lock it to a specific custom agent.
+
+### Adding Custom Subagents
+
+Drop a new `.agent.md` file in `.github/agents/`. Example for a security-focused analyzer:
 
 ```markdown
 ---
 name: security-analyzer
-description: Analyzes security implications
-tools: Read, Grep
+description: Analyzes security implications and surfaces risky patterns
+tools: ['search/codebase', 'search/textSearch', 'search/fileSearch', 'search/usages', 'read/readFile']
+user-invocable: false
 ---
 
-You are a security specialist...
+You are a security specialist. Your job is to identify potential vulnerabilities, insecure patterns, and risky dependencies in the code you are asked to review…
 ```
 
-### Project-Specific CLAUDE.md
+Then invoke it from a prompt via the `agent/runSubagent` tool by name.
 
-Add instructions for your project:
+### Project-Specific Instructions
+
+Project conventions belong in the **target repository's** `AGENTS.md` (Copilot, Claude, Gemini, and other agentic tools all read it). The installer appends a framework section but leaves your project content intact. A typical project-conventions block looks like:
 
 ```markdown
 # Project Conventions
@@ -464,7 +457,7 @@ Add instructions for your project:
 ## Testing
 - Always write tests first (TDD)
 - Minimum 80% coverage required
-- Use Jest for unit tests
+- Use Jest for unit tests, Playwright for E2E
 
 ## Code Style
 - Use Prettier formatting
@@ -472,16 +465,15 @@ Add instructions for your project:
 - Prefer functional programming
 
 ## Git Workflow
-- Feature branches from develop
+- Feature branches from `develop`
 - Squash commits on merge
-- Conventional commit messages
+- Conventional commit messages (`feat:`, `fix:`, `chore:` …)
 ```
+
+For **path-scoped** conventions, create `.github/instructions/NAME.instructions.md` files with an `applyTo:` glob - VS Code Copilot applies them only when files matching the glob are in context.
 
 ## Troubleshooting
 
-### Common Issues
-
-**Q: Research phase taking too long?**
 - A: Limit scope of research question
 - Focus on specific component/feature
 - Use more targeted queries
@@ -511,36 +503,36 @@ Add instructions for your project:
 
 ## Advanced Usage
 
-### Chaining Commands
+### Chaining Prompts
 
-For complex features, chain commands:
+For complex features, chain prompts end-to-end:
 
 ```
 /1_research_codebase
 > Research current auth system
 
 /2_create_plan
-> Based on research, plan OAuth integration
+> Based on the research, plan OAuth integration
 
 /4_implement_plan
-> thoughts/shared/plans/oauth_integration.md
+> thoughts/shared/plans/001_oauth_integration.md
 
 /3_validate_plan
 > Verify OAuth implementation
 
-# Then manually commit using git
+# Then commit using git directly
 ```
 
 ### Parallel Research
 
-Research multiple aspects simultaneously:
+Research multiple aspects simultaneously by asking a compound question:
 
 ```
 /1_research_codebase
 > How do authentication, authorization, and user management work together?
 ```
 
-This spawns agents to research each aspect in parallel.
+This dispatches a subagent per aspect, in parallel.
 
 ### Cloud Infrastructure Analysis
 
@@ -596,4 +588,4 @@ Design tests before implementation:
 
 This framework provides structure without rigidity. It scales from simple features to complex architectural changes. The key is consistent use - the more you use it, the more valuable your `thoughts/` directory becomes as organizational knowledge.
 
-Remember: The framework is a tool to enhance development, not replace thinking. Use it to augment your capabilities, not as a rigid process.
+Remember: the framework is a tool to enhance development, not replace thinking. Use it to augment your capabilities, not as a rigid process.

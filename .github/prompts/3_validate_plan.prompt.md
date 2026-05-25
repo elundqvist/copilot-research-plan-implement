@@ -1,3 +1,9 @@
+---
+description: Verify implementation matches the plan's success criteria
+argument-hint: Optional path to a plan file in thoughts/shared/plans/
+tools: ['search', 'read/readFile', 'edit/editFiles', 'execute/runInTerminal', 'agent/runSubagent']
+---
+
 # Validate Plan
 
 You are tasked with validating that an implementation plan was correctly executed, verifying all success criteria and identifying any deviations or issues.
@@ -5,21 +11,20 @@ You are tasked with validating that an implementation plan was correctly execute
 ## Initial Setup
 
 When invoked:
-1. **Determine context** - Review what was implemented
-2. **Locate the plan** - Find the implementation plan document
-3. **Gather implementation evidence** through git and testing
+1. **Determine context** - Review what was implemented.
+2. **Locate the plan** - Find the implementation plan document (in `thoughts/shared/plans/`).
+3. **Gather implementation evidence** through git and testing.
 
 ## Validation Process
 
 ### Step 1: Context Discovery
 
-1. **Read the implementation plan** completely
+1. **Read the implementation plan** completely.
 2. **Identify what should have changed**:
    - List all files that should be modified
    - Note all success criteria (automated and manual)
    - Identify key functionality to verify
-
-3. **Spawn parallel research tasks** to discover implementation:
+3. **Dispatch parallel subagents** (via the `agent` tool) to discover implementation:
    - Verify code changes match plan specifications
    - Check if tests were added/modified as specified
    - Validate that success criteria are met
@@ -29,21 +34,19 @@ When invoked:
 For each phase in the plan:
 
 1. **Check completion status**:
-   - Look for checkmarks in the plan (- [x])
+   - Look for checkmarks in the plan (`- [x]`)
    - Verify actual code matches claimed completion
-
 2. **Run automated verification**:
    - Execute each command from "Automated Verification"
    - Document pass/fail status
    - If failures, investigate root cause
-
 3. **Assess manual criteria**:
    - List what needs manual testing
    - Provide clear steps for user verification
 
 ### Step 3: Generate Validation Report
 
-Create comprehensive validation summary:
+Create a comprehensive validation summary:
 
 ```markdown
 ## Validation Report: [Plan Name]
@@ -88,10 +91,10 @@ Create comprehensive validation summary:
 
 ## Important Guidelines
 
-1. **Be thorough but practical** - Focus on what matters
-2. **Run all automated checks** - Don't skip verification
-3. **Document everything** - Both successes and issues
-4. **Think critically** - Question if implementation solves the problem
+1. **Be thorough but practical** - Focus on what matters.
+2. **Run all automated checks** - Don't skip verification.
+3. **Document everything** - Both successes and issues.
+4. **Think critically** - Question whether the implementation actually solves the problem.
 5. **Consider maintenance** - Will this be maintainable?
 
 ## Validation Checklist

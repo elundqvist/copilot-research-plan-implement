@@ -2,47 +2,49 @@
 
 Forked from the Claude Code specific version: https://github.com/brilliantconsultingdev/claude-research-plan-implement
 
-A structured workflow framework for AI-assisted software development that emphasizes thorough research, detailed planning, and systematic implementation.
+A structured workflow framework for AI-assisted software development with **GitHub Copilot** — both in **VS Code** and in **Copilot CLI**. It emphasizes thorough research, detailed planning, and systematic implementation, with all context persisted as Markdown under `thoughts/`.
 
 ## 🚀 Quick Start
 
 ```bash
-# Run the setup script
+# Install the framework into a target repository
 ./setup.sh /path/to/your/repo
 
-# Or manually copy files
-cp -r .claude /path/to/your/repo/
-cp -r thoughts /path/to/your/repo/
-cp PLAYBOOK.md /path/to/your/repo/
+# Or, run it interactively
+./setup.sh
 ```
+
+After installation, open the target repo in VS Code (or `cd` into it and run `copilot`) and type `/` in chat to see the workflow prompts.
 
 ## 📁 What's Included
 
 ```
-.claude-framework-adoption/
-├── .claude/
-│   ├── agents/                  # AI agent definitions
-│   │   ├── codebase-locator.md  # Finds relevant files
-│   │   ├── codebase-analyzer.md # Analyzes how code works
-│   │   └── codebase-pattern-finder.md # Finds patterns to follow
-│   └── commands/                # Numbered workflow commands
-│       ├── 1_research_codebase.md
-│       ├── 2_create_plan.md
-│       ├── 3_validate_plan.md
-│       ├── 4_implement_plan.md
-│       ├── 5_save_progress.md
-│       ├── 6_resume_work.md
-│       ├── 7_research_cloud.md
-│       └── 8_define_test_cases.md
-├── thoughts/                    # Context storage structure
+copilot-research-plan-implement/
+├── .github/
+│   ├── agents/                            # Custom subagents (.agent.md)
+│   │   ├── codebase-locator.agent.md      # Finds WHERE code lives
+│   │   ├── codebase-analyzer.agent.md     # Explains HOW code works
+│   │   └── codebase-pattern-finder.agent.md  # Finds patterns to follow
+│   └── prompts/                           # Workflow slash-commands (.prompt.md)
+│       ├── 1_research_codebase.prompt.md
+│       ├── 2_create_plan.prompt.md
+│       ├── 3_validate_plan.prompt.md
+│       ├── 4_implement_plan.prompt.md
+│       ├── 5_save_progress.prompt.md
+│       ├── 6_resume_work.prompt.md
+│       ├── 7_research_cloud.prompt.md
+│       └── 8_define_test_cases.prompt.md
+├── thoughts/                              # Persistent context storage
 │   └── shared/
-│       ├── research/
-│       ├── plans/
-│       ├── sessions/
-│       └── cloud/
-├── PLAYBOOK.md                  # Comprehensive documentation
-├── setup.sh                     # Automated setup script
-└── README.md                    # This file
+│       ├── research/    # NNN_topic.md
+│       ├── plans/       # NNN_feature.md
+│       ├── sessions/    # NNN_feature.md
+│       └── cloud/       # NNN_platform.md
+├── AGENTS.md                              # Primary cross-tool instructions
+├── PLAYBOOK.md                            # Full documentation
+├── setup.sh                               # Installer
+├── update.sh                              # Update wrapper
+└── README.md                              # This file
 ```
 
 ## 🔄 Workflow Commands

@@ -1,3 +1,9 @@
+---
+description: Execute an approved implementation plan systematically
+argument-hint: Path to a plan in thoughts/shared/plans/
+tools: ['search', 'read/readFile', 'edit/editFiles', 'execute/runInTerminal', 'execute/createAndRunTask', 'execute/testFailure', 'agent/runSubagent', 'todos']
+---
+
 # Implement Plan
 
 You are tasked with implementing an approved technical plan from `thoughts/shared/plans/`. These plans contain phases with specific changes and success criteria.
@@ -5,13 +11,13 @@ You are tasked with implementing an approved technical plan from `thoughts/share
 ## Getting Started
 
 When given a plan path:
-- Read the plan completely and check for any existing checkmarks (- [x])
+- Read the plan completely and check for any existing checkmarks (`- [x]`)
 - Read all files mentioned in the plan
-- **Read files fully** - never use limit/offset parameters
-- Create a todo list to track your progress
-- Start implementing if you understand what needs to be done
+- **Read files fully** - do not use offset/limit
+- Use the `todos` tool to track progress through phases
+- Start implementing once you understand what needs to be done
 
-If no plan path provided, ask for one.
+If no plan path was provided, ask for one.
 
 ## Implementation Philosophy
 
@@ -36,25 +42,25 @@ How should I proceed?
 After implementing a phase:
 - Run the success criteria checks
 - Fix any issues before proceeding
-- Update your progress in both the plan and your todos
-- Check off completed items in the plan file using Edit
+- Update progress in both the plan and the `todos` list
+- Check off completed items in the plan file
 
 ## Working Process
 
 1. **Phase by Phase Implementation**:
-   - Complete one phase entirely before moving to next
+   - Complete one phase entirely before moving to the next
    - Run all automated checks for that phase
    - Update plan checkboxes as you go
 
 2. **When You Get Stuck**:
    - First, ensure you've read and understood all relevant code
-   - Consider if the codebase has evolved since plan was written
+   - Consider if the codebase has evolved since the plan was written
    - Present the mismatch clearly and ask for guidance
 
 3. **Progress Tracking**:
-   - Use TodoWrite to track implementation tasks
-   - Update plan file with [x] checkmarks as you complete items
-   - Keep user informed of progress
+   - Use the `todos` tool to track implementation tasks
+   - Update the plan file with `[x]` checkmarks as you complete items
+   - Keep the user informed of progress
 
 ## Resuming Work
 

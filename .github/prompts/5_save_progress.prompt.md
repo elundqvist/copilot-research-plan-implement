@@ -1,11 +1,17 @@
+---
+description: Save current work session state for later resumption
+argument-hint: Optional note about why you're stopping
+tools: ['search', 'read/readFile', 'edit/editFiles', 'execute/runInTerminal', 'todos']
+---
+
 # Save Progress
 
 You are tasked with creating a comprehensive progress checkpoint when the user needs to pause work on a feature.
 
-## When to Use This Command
+## When to Use This Prompt
 
 Invoke this when:
-- User needs to stop mid-implementation
+- The user needs to stop mid-implementation
 - Switching to another task/feature
 - End of work session
 - Before a break or context switch
@@ -14,10 +20,10 @@ Invoke this when:
 
 ### Step 1: Assess Current State
 
-1. **Review conversation history** to understand what was being worked on
+1. **Review the conversation history** to understand what was being worked on
 2. **Check git status** for uncommitted changes
 3. **Identify the active plan** if one exists
-4. **Review todo list** for current tasks
+4. **Review the current `todos` list**
 
 ### Step 2: Save Code Progress
 
@@ -72,7 +78,7 @@ If working from a plan, update it with:
 # To continue exactly where we left off:
 cd /path/to/repo
 git status
-/4_implement_plan thoughts/shared/plans/feature.md
+# Then invoke: /6_resume_work thoughts/shared/sessions/NNN_feature.md
 ```
 ```
 
@@ -153,12 +159,12 @@ To continue this work:
    # Commit any remaining work
    git add .
    git commit -m "WIP: [Feature] - Save progress checkpoint"
-   # Document commit hash in session summary
+   # Document the commit hash in the session summary
    ```
 
-2. **Update todo list** to reflect saved state
+2. Update the `todos` list to reflect the saved state.
 
-3. **Present summary** to user:
+3. **Present a summary** to the user:
    ```
    ✅ Progress saved successfully!
 
@@ -180,7 +186,7 @@ To continue this work:
 
 ## Integration with Framework
 
-This command works with:
+This prompt works with:
 - `/4_implement_plan` - Updates plan progress
-- `/6_resume_work` - Paired resume command
+- `/6_resume_work` - Paired resume prompt
 - `/3_validate_plan` - Can validate partial progress

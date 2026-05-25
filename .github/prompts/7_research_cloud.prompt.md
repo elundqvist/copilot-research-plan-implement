@@ -1,13 +1,19 @@
+---
+description: Analyze cloud infrastructure with READ-ONLY CLI operations (Azure/AWS/GCP)
+argument-hint: Cloud platform (Azure/AWS/GCP) and focus area
+tools: ['search', 'read/readFile', 'edit/editFiles', 'execute/runInTerminal', 'todos']
+---
+
 # Research Cloud Infrastructure
 
-You are tasked with conducting comprehensive READ-ONLY analysis of cloud deployments and infrastructure using cloud-specific CLI tools (az, aws, gcloud, etc.).
+You are tasked with conducting comprehensive READ-ONLY analysis of cloud deployments and infrastructure using cloud-specific CLI tools (`az`, `aws`, `gcloud`, etc.).
 
 ⚠️ **IMPORTANT SAFETY NOTE** ⚠️
-This command only executes READ-ONLY cloud CLI operations. All commands are safe inspection operations that do not modify any cloud resources.
+This prompt only executes READ-ONLY cloud CLI operations. All commands are safe inspection operations that do not modify any cloud resources.
 
-## Initial Setup:
+## Initial Setup
 
-When this command is invoked, respond with:
+When this prompt is invoked, respond with:
 ```
 I'm ready to analyze your cloud infrastructure. Please specify:
 1. Which cloud platform (Azure/AWS/GCP/other)
@@ -21,16 +27,16 @@ I'm ready to analyze your cloud infrastructure. Please specify:
 
 Then wait for the user's specifications.
 
-## Steps to follow after receiving the cloud research request:
+## Steps to follow after receiving the cloud research request
 
 1. **Verify Cloud CLI Access:**
-   - Check if the appropriate CLI is installed (az, aws, gcloud)
+   - Check if the appropriate CLI is installed (`az`, `aws`, `gcloud`)
    - Verify authentication status
    - Identify available subscriptions/projects
 
 2. **Decompose the Research Scope:**
    - Break down the analysis into research areas
-   - Create a research plan using TodoWrite
+   - Use the `todos` tool to track subtasks
    - Identify specific resource types to investigate
    - Plan parallel inspection tasks
 
@@ -60,7 +66,7 @@ Then wait for the user's specifications.
    ```markdown
    ---
    date: [Current date and time in ISO format]
-   researcher: Claude
+   researcher: GitHub Copilot
    platform: [Azure/AWS/GCP]
    environment: [Production/Staging/Dev]
    subscription: [Subscription/Account ID]
@@ -147,7 +153,7 @@ Then wait for the user's specifications.
 
 - **READ-ONLY OPERATIONS ONLY** - never create, modify, or delete
 - **Always verify CLI authentication** before running commands
-- **Use --output json** for structured data parsing
+- **Use `--output json`** for structured data parsing
 - **Handle API rate limits** by spacing requests
 - **Respect security** - never expose sensitive data in reports
 - **Be cost-conscious** - only run necessary read operations
@@ -190,7 +196,7 @@ Then wait for the user's specifications.
 
 ## Error Handling:
 
-- If CLI not authenticated: Guide user through login
-- If insufficient permissions: List required permissions
-- If rate limited: Implement exponential backoff
-- If resources not accessible: Document and continue with available data
+- If CLI not authenticated: guide the user through login
+- If insufficient permissions: list required permissions
+- If rate-limited: implement exponential backoff
+- If resources not accessible: document and continue with available data

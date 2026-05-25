@@ -1,17 +1,19 @@
-# Define Test Cases Command
+---
+description: Design acceptance test cases using a comment-first DSL approach
+argument-hint: Feature or functionality to test
+tools: ['search', 'read/readFile', 'edit/editFiles', 'agent/runSubagent']
+---
+
+# Define Test Cases
 
 You are helping define automated acceptance test cases using a Domain Specific Language (DSL) approach.
 
 ## Core Principles
 
 1. **Comment-First Approach**: Always start by writing test cases as structured comments before any implementation.
-
 2. **DSL at Every Layer**: All test code - setup, actions, assertions - must be written as readable DSL functions. No direct framework calls in test files.
-
 3. **Implicit Given-When-Then**: Structure tests with blank lines separating setup, action, and assertion phases. Never use the words "Given", "When", or "Then" explicitly.
-
 4. **Clear, Concise Language**: Function names should read like natural language and clearly convey intent.
-
 5. **Follow Existing Patterns**: Study and follow existing test patterns, DSL conventions, and naming standards in the codebase.
 
 ## Test Case Structure
@@ -168,21 +170,12 @@ Ask clarifying questions about:
 - Edge cases and error conditions
 
 ### 2. Research Existing Test Patterns
-**IMPORTANT**: Before writing any test cases, use the Task tool to launch a codebase-pattern-finder agent to:
+**IMPORTANT**: Before writing any test cases, dispatch the `codebase-pattern-finder` subagent (via the `agent` tool) to:
 - Find existing acceptance/integration test files
 - Identify current DSL function naming conventions
 - Understand test structure patterns used in the project
 - Discover existing DSL functions that can be reused
 - Learn how tests are organized and grouped
-
-Example agent invocation:
-```
-Use the Task tool with subagent_type="codebase-pattern-finder" to find:
-- Existing acceptance test files and their structure
-- DSL function patterns and naming conventions
-- Test organization patterns (describe blocks, test grouping)
-- Existing DSL functions for setup, actions, and assertions
-```
 
 ### 3. Define Test Cases in Comments
 Create comprehensive test scenarios covering:
@@ -206,7 +199,7 @@ Identify which functions already exist (from step 2) and which need to be create
 
 ## Deliverables
 
-When you complete this command, provide:
+When you complete this prompt, provide:
 
 1. **Test case definitions in comments** - All test scenarios written in the structured comment format
 2. **List of required DSL functions** - Organized by category (setup/action/assertion), noting which exist and which need creation
