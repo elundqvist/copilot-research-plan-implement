@@ -1,7 +1,8 @@
 ---
 description: Design acceptance test cases using a comment-first DSL approach
 argument-hint: Feature or functionality to test
-tools: ['search', 'read/readFile', 'edit/editFiles', 'agent/runSubagent']
+tools: ['search', 'read/readFile', 'edit/editFiles', 'edit/createFile', 'edit/createDirectory', 'execute/runInTerminal', 'agent/runSubagent', 'vscode/askQuestions', 'todo']
+model: Claude Sonnet 4.6
 ---
 
 # Define Test Cases

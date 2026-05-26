@@ -1,7 +1,8 @@
 ---
 description: Save current work session state for later resumption
 argument-hint: Optional note about why you're stopping
-tools: ['search', 'read/readFile', 'edit/editFiles', 'execute/runInTerminal', 'todo']
+tools: ['search', 'read/readFile', 'edit/editFiles', 'edit/createFile', 'edit/createDirectory', 'execute/runInTerminal', 'vscode/askQuestions', 'todo']
+model: Claude Sonnet 4.6
 ---
 
 # Save Progress

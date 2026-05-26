@@ -28,8 +28,8 @@ copilot-research-plan-implement/
 │   └── prompts/                           # Workflow slash-commands (.prompt.md)
 │       ├── 1_research_codebase.prompt.md
 │       ├── 2_create_plan.prompt.md
-│       ├── 3_validate_plan.prompt.md
-│       ├── 4_implement_plan.prompt.md
+│       ├── 3_implement_plan.prompt.md
+│       ├── 4_validate_plan.prompt.md
 │       ├── 5_save_progress.prompt.md
 │       ├── 6_resume_work.prompt.md
 │       ├── 7_research_cloud.prompt.md
@@ -63,17 +63,17 @@ The framework follows a structured workflow:
 **Output**: Structured plan saved to `thoughts/shared/plans/`
 **Example**: "Add OAuth2 integration to the authentication system"
 
-### 3️⃣ Validate Plan (`/3_validate_plan`)
-**Purpose**: Verify implementation matches the plan's success criteria
-**Usage**: Automatically checks against the most recent plan
-**Output**: Validation report confirming all phases are complete
-**Example**: Just run `/3_validate_plan` after implementation
-
-### 4️⃣ Implement Plan (`/4_implement_plan`)
+### 3️⃣ Implement Plan (`/3_implement_plan`)
 **Purpose**: Execute a plan systematically, phase by phase
 **Usage**: Provide path to a plan file or describe what to implement
 **Output**: Code changes following the plan's specifications
 **Example**: `thoughts/shared/plans/oauth2_integration.md`
+
+### 4️⃣ Validate Plan (`/4_validate_plan`)
+**Purpose**: Verify implementation matches the plan's success criteria
+**Usage**: Automatically checks against the most recent plan
+**Output**: Validation report confirming all phases are complete
+**Example**: Just run `/4_validate_plan` after implementation
 
 ### 5️⃣ Save Progress (`/5_save_progress`)
 **Purpose**: Save current work session state for continuity
@@ -134,11 +134,11 @@ After installation, customize for your project:
 > Add OAuth2 integration to the authentication system
 
 # 3. Implement the plan
-/4_implement_plan
+/3_implement_plan
 > thoughts/shared/plans/oauth2_integration.md
 
 # 4. Validate implementation matches plan
-/3_validate_plan
+/4_validate_plan
 
 # 5. Save progress if needed to pause
 /5_save_progress
@@ -168,7 +168,7 @@ After installation, customize for your project:
 # (Follow the patterns discovered by the agent)
 
 # 3. Implement the actual feature to make tests pass
-/4_implement_plan
+/3_implement_plan
 > Implement partner enrollment logic
 ```
 

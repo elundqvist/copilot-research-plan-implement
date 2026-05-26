@@ -17,8 +17,8 @@ This is the GitHub Copilot Research-Plan-Implement Framework - a structured work
 ### Workflow Commands (in target repositories using this framework)
 1. `/1_research_codebase` - Deep codebase exploration with parallel AI agents
 2. `/2_create_plan` - Create detailed, phased implementation plans
-3. `/3_validate_plan` - Verify implementation matches plan
-4. `/4_implement_plan` - Execute plan systematically
+3. `/3_implement_plan` - Execute plan systematically
+4. `/4_validate_plan` - Verify implementation matches plan
 5. `/5_save_progress` - Save work session state
 6. `/6_resume_work` - Resume from saved session
 7. `/7_research_cloud` - Read-only cloud infrastructure analysis

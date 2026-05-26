@@ -259,7 +259,7 @@ else
     echo "  3. In Copilot Chat, type \`/\` to see the workflow prompts:"
     echo "       /1_research_codebase"
     echo "       /2_create_plan"
-    echo "       /4_implement_plan"
+    echo "       /3_implement_plan"
     echo ""
     echo "🔄 To update the framework later:"
     echo "    ./setup.sh $TARGET_DIR     # choose option 1"

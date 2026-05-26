@@ -1,7 +1,8 @@
 ---
 description: Verify implementation matches the plan's success criteria
 argument-hint: Optional path to a plan file in thoughts/shared/plans/
-tools: ['search', 'read/readFile', 'edit/editFiles', 'execute/runInTerminal', 'agent/runSubagent']
+tools: ['search', 'read/readFile', 'edit/editFiles', 'edit/createFile', 'edit/createDirectory', 'execute/runInTerminal', 'agent/runSubagent', 'vscode/askQuestions', 'todo']
+model: Claude Sonnet 4.6
 ---
 
 # Validate Plan

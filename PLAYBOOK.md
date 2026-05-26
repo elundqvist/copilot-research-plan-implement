@@ -70,7 +70,7 @@ Before first use, tailor the framework to your stack:
 /2_create_plan
 > I need to add two-factor authentication
 
-/4_implement_plan
+/3_implement_plan
 > thoughts/shared/plans/two_factor_auth.md
 ```
 
@@ -80,7 +80,7 @@ Before first use, tailor the framework to your stack:
 > Two-factor authentication for user login
 
 # Design tests, then implement feature
-/4_implement_plan
+/3_implement_plan
 > Implement 2FA to make tests pass
 ```
 
@@ -96,8 +96,8 @@ your-repo/
 │   └── prompts/                           # Workflow slash-commands
 │       ├── 1_research_codebase.prompt.md
 │       ├── 2_create_plan.prompt.md
-│       ├── 3_validate_plan.prompt.md
-│       ├── 4_implement_plan.prompt.md
+│       ├── 3_implement_plan.prompt.md
+│       ├── 4_validate_plan.prompt.md
 │       ├── 5_save_progress.prompt.md
 │       ├── 6_resume_work.prompt.md
 │       ├── 7_research_cloud.prompt.md
@@ -173,7 +173,7 @@ your-repo/
 
 Saved as `thoughts/shared/plans/NNN_feature.md`.
 
-### Phase 3: Implementation (`/4_implement_plan`)
+### Phase 3: Implementation (`/3_implement_plan`)
 
 **Purpose**: Execute plan systematically
 
@@ -185,7 +185,7 @@ Saved as `thoughts/shared/plans/NNN_feature.md`.
 
 **Example**:
 ```
-/4_implement_plan
+/3_implement_plan
 > thoughts/shared/plans/stripe_integration.md
 ```
 
@@ -194,7 +194,7 @@ Saved as `thoughts/shared/plans/NNN_feature.md`.
 - TodoWrite for task management
 - Communicates blockers clearly
 
-### Phase 4: Validation (`/3_validate_plan`)
+### Phase 4: Validation (`/4_validate_plan`)
 
 **Purpose**: Verify implementation matches plan
 
@@ -207,7 +207,7 @@ Saved as `thoughts/shared/plans/NNN_feature.md`.
 
 **Example**:
 ```
-/3_validate_plan
+/4_validate_plan
 > Validate the Stripe integration implementation
 ```
 
@@ -284,15 +284,15 @@ Saved as `thoughts/shared/plans/NNN_feature.md`.
 - **Output**: `thoughts/shared/plans/NNN_feature.md`
 - **Interactive**: Yes - asks clarifying questions.
 
-### `/3_validate_plan`
-- **Purpose**: Verify implementation
-- **Input**: A plan path (or auto-detect most recent).
-- **Output**: Validation report (returned in chat).
-
-### `/4_implement_plan`
+### `/3_implement_plan`
 - **Purpose**: Execute implementation
 - **Input**: A plan path.
 - **Output**: Code changes + plan checkbox updates.
+
+### `/4_validate_plan`
+- **Purpose**: Verify implementation
+- **Input**: A plan path (or auto-detect most recent).
+- **Output**: Validation report (returned in chat).
 
 ## Session Management
 
@@ -514,10 +514,10 @@ For complex features, chain prompts end-to-end:
 /2_create_plan
 > Based on the research, plan OAuth integration
 
-/4_implement_plan
+/3_implement_plan
 > thoughts/shared/plans/001_oauth_integration.md
 
-/3_validate_plan
+/4_validate_plan
 > Verify OAuth implementation
 
 # Then commit using git directly
@@ -575,11 +575,11 @@ Design tests before implementation:
 > Implement partner enrollment logic to make tests pass
 
 # Step 5: Implement the feature
-/4_implement_plan
+/3_implement_plan
 > thoughts/shared/plans/partner_enrollment.md
 
 # Step 6: Validate tests pass
-/3_validate_plan
+/4_validate_plan
 ```
 
 **Key Benefit**: Tests are designed with existing patterns in mind, ensuring consistency across the test suite.

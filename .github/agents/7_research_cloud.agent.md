@@ -1,7 +1,8 @@
 ---
 description: Analyze cloud infrastructure with READ-ONLY CLI operations (Azure/AWS/GCP)
 argument-hint: Cloud platform (Azure/AWS/GCP) and focus area
-tools: ['search', 'read/readFile', 'edit/editFiles', 'execute/runInTerminal', 'todo']
+tools: ['search', 'read/readFile', 'edit/editFiles', 'edit/createFile', 'edit/createDirectory', 'execute/runInTerminal', 'vscode/askQuestions', 'web/fetch', 'web/githubRepo', 'web/githubTextSearch', 'todo']
+model: Claude Sonnet 4.6
 ---
 
 # Research Cloud Infrastructure
