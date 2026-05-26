@@ -1,6 +1,5 @@
 ---
 description: Create a detailed, phased implementation plan
-argument-hint: A feature/task description, ticket, or path to research
 tools: ['search', 'read/readFile', 'edit/editFiles', 'edit/createFile', 'edit/createDirectory', 'execute/runInTerminal', 'agent/runSubagent', 'vscode/askQuestions', 'web/fetch', 'web/githubRepo', 'web/githubTextSearch', 'todo']
 model: Claude Sonnet 4.6
 ---

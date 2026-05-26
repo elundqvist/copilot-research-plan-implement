@@ -1,6 +1,5 @@
 ---
 description: Execute an approved implementation plan systematically
-argument-hint: Path to a plan in thoughts/shared/plans/
 tools: ['search', 'read/readFile', 'edit/editFiles', 'edit/createFile', 'edit/createDirectory', 'execute/runInTerminal', 'execute/createAndRunTask', 'execute/testFailure', 'agent/runSubagent', 'vscode/askQuestions', 'todo']
 model: Claude Sonnet 4.6
 ---

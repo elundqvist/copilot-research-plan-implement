@@ -1,6 +1,5 @@
 ---
 description: Restore context from a saved session and continue work
-argument-hint: Path to a session summary in thoughts/shared/sessions/
 tools: ['search', 'read/readFile', 'edit/editFiles', 'edit/createFile', 'edit/createDirectory', 'execute/runInTerminal', 'agent/runSubagent', 'vscode/askQuestions', 'todo']
 model: Claude Sonnet 4.6
 ---
