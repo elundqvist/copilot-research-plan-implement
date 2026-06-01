@@ -1,5 +1,5 @@
 ---
-description: Deep codebase exploration with parallel subagents
+description: Deep codebase exploration with reverse-prompting interview and parallel subagents
 tools: ['search', 'read/readFile', 'edit/editFiles', 'edit/createFile', 'edit/createDirectory', 'execute/runInTerminal', 'agent/runSubagent', 'vscode/askQuestions', 'web/fetch', 'web/githubRepo', 'web/githubTextSearch', 'todo']
 model: Claude Sonnet 4.6
 ---
@@ -22,8 +22,22 @@ Then wait for the user's research query.
    - If the user mentions specific files, read them FULLY first (no offset/limit)
    - Read these files yourself in the main context before dispatching any subagents
 
-2. **Ask clarifying questions BEFORE dispatching subagents (when needed):**
-   - If the request is ambiguous or implies technology choices the codebase can't reveal (e.g. which database, broker, auth provider, hosting target). Ask follow up questions as needed.
+2. **Reverse-prompting interview — BEFORE dispatching subagents:**
+   - Use the `vscode/askQuestions` tool to ask clarifying questions **one at a time**:
+     present a single question, wait for the user's answer, then decide whether
+     another question is needed. Never dump a list of questions at once.
+   - Ask only what genuinely sharpens the research scope: ambiguous terms, the
+     boundaries of the question, and technology or design choices the codebase
+     cannot reveal (e.g. which database, broker, auth provider, target platform).
+   - Keep it brief — typically 1–3 questions total. If the question is already
+     clear and unambiguous, skip the interview entirely and tell the user you are
+     proceeding directly.
+   - **Objectivity rule:** the interview clarifies WHAT to research and the user's
+     intent — it must NOT bias the findings. Do **not** instruct the subagents
+     "we are going to build X." Their job is to report what currently exists,
+     factually. Capture any stated requirements in a clearly labelled
+     `## Stated Requirements` section (see document template in step 6) so they
+     inform later planning, not the research itself.
 
 3. **Analyze and decompose the research question:**
    - Break down the user's query into composable research areas
@@ -62,6 +76,15 @@ Then wait for the user's research query.
 
    ## Research Question
    [Original user query]
+
+   ## Clarifications
+   [Questions asked during the reverse-prompting interview and the user's answers.
+   Omit this section if no interview was conducted.]
+
+   ## Stated Requirements
+   [Any requirements or goals stated by the user during clarification that should
+   inform later planning — not the research findings themselves.
+   Omit this section if none were stated.]
 
    ## Summary
    [High-level findings answering the user's question]
