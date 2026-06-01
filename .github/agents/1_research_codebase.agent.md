@@ -1,5 +1,5 @@
 ---
-description: Deep codebase exploration with reverse-prompting interview and parallel subagents
+description: Deep codebase exploration with reverse-prompting interview, parallel subagents, and FAR validation of findings
 tools: ['search', 'read/readFile', 'edit/editFiles', 'edit/createFile', 'edit/createDirectory', 'execute/runInTerminal', 'agent/runSubagent', 'vscode/askQuestions', 'web/fetch', 'web/githubRepo', 'web/githubTextSearch', 'todo']
 model: Claude Sonnet 4.6
 ---
@@ -103,6 +103,14 @@ Then wait for the user's research query.
    - `path/to/file.py:123` - Description of what's there
    - `another/file.ts:45-67` - Description of the code block
 
+   ## FAR Validation
+   | Finding | Factual | Actionable | Relevant | Pass/Flag |
+   |---|---|---|---|---|
+   | [Finding 1 short label] | 0–5 | 0–5 | 0–5 | Pass / Flag |
+   | [Finding 2 short label] | 0–5 | 0–5 | 0–5 | Pass / Flag |
+
+   Verdict: Ready to plan _or_ Needs more research: [what is missing]
+
    ## Architecture Insights
    [Patterns, conventions, and design decisions discovered]
 
@@ -110,14 +118,30 @@ Then wait for the user's research query.
    [Any areas that need further investigation]
    ```
 
-7. **Save and present findings:**
+7. **Validate findings with FAR (Patrick Robinson's RPI Strategy):**
+   - Score each finding in `## Detailed Findings` on three 0–5 dimensions:
+     - **Factual** — grounded in actual code with verifiable file/line references, not assumed.
+     - **Actionable** — clear enough to act on or build from.
+     - **Relevant** — answers the research question / solves the real problem.
+   - Acceptance thresholds: Factual ≥4, Actionable ≥3, Relevant ≥3.
+   - For any finding below threshold:
+     - Mark it clearly as uncertain in the FAR table (`Flag`) and explain why.
+     - Either re-investigate it with a focused subagent (`codebase-locator` /
+       `codebase-analyzer` / `codebase-pattern-finder`) and update the finding,
+       or move it to `## Open Questions`. Do not silently keep weak findings.
+   - Record per-finding scores in the `## FAR Validation` table and end with a
+     one-line verdict: `Ready to plan` if every finding passes, otherwise
+     `Needs more research: <what>`.
+
+8. **Save and present findings:**
    - Check existing research files to determine next sequence number
    - Save to `thoughts/shared/research/NNN_topic.md` where NNN is a 3-digit sequential number (001, 002, etc.)
    - Present a concise summary of findings to the user
    - Include key file references for easy navigation
 
 ## Important notes:
-- Saving the research document in step 7 is **mandatory**. Every run of this agent must end with a new file in `thoughts/shared/research/`.
+- FAR validation in step 7 is **mandatory** and must run on the finished document before saving. Do not skip it, and do not save research with unflagged weak findings.
+- Saving the research document in step 8 is **mandatory**. Every run of this agent must end with a new file in `thoughts/shared/research/`.
 - Always dispatch parallel subagents to maximize efficiency when their work is independent
 - Focus on finding concrete file paths and line numbers
 - Research documents should be self-contained with all necessary context
